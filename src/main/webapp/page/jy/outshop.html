@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>出库表</title>
+     #include("/page/sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+  	<div v-show="showTable">
+	  	 <Row :gutter="16">
+	  	 		<!-- <div class="search-group">
+	                <i-col span="4">
+	                    <i-input v-model="q.username" @on-enter="query" placeholder="工序名称"/>
+	                </i-col>
+	                <i-button @click="query">查询</i-button>
+	            </div> -->
+	  	 </Row>
+    	<i-table border stripe :columns="outColumns" :data="outPageList"></i-table>
+    	<div style="margin: 10px;overflow: hidden">
+	        <div style="float: right;">
+	            <Page :total="outListSize" :current="page" :page-size="10" @on-change="pageChange" ></Page>
+	        </div>
+    	</div>
+    </div>
+</div>
+<script src="/js/jy/outshop.js?#now()"></script>
+</body>
+</html>

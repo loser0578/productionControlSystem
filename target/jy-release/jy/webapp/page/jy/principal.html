@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品总览</title>
+     #include("/page/sys/header.html")
+</head>
+<body>
+
+
+<div id="rrapp">
+	<Card>
+		<i-form ref="query" :model="query" :label-width="100" inline>
+			<Form-item label="按年份查询">
+				<Date-picker type="year" placeholder="请选择查询年份" @on-change="timeChange"></Date-picker>
+			</Form-item>
+			<Form-item label="按季度查询">
+				<i-select v-model="query.quarter" size="large" style="width:180" placeholder="选择季度">
+        			<i-option v-for="quarter in quarterList" :value="quarter.id" :label="quarter.name"></i-option>
+    			</i-select>
+			</Form-item>
+			<Form-item label="按月份查询">
+				<i-select v-model="query.month" size="large" style="width:100px" placeholder="选择月份">
+        			<i-option v-for="month in monthList" :value="month.id" :label="month.name" style="width:100px"></i-option>
+    			</i-select>
+    			<i-button type="success" @click="select">查询</i-button>
+			</Form-item>
+		</i-form>
+
+        <div id="principal" style="width:90%;height:400px;margin:0 auto"></div>
+	</Card>
+</div>
+
+<script src="/js/jy/principal.js?#now()"></script>
+</body>
+</html>

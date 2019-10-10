@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>出库表</title>
+     #include("/page/sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<Modal
+        v-model="showModel"
+        title="库存出货"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <i-form :model="modelItem" :label-width="100">
+        	<Form-item label="选择客户">
+	    		<i-select v-model="modelItem.client_id">
+	        		<i-option v-for="client in clientList" :value="client.client_id" :label="client.client_name"></i-option>
+	    		</i-select>
+    		</Form-item>
+            <Form-item label="出货数量">
+                <input-number v-model="modelItem.number"></input-number>
+            </Form-item>
+    	</i-form>
+    </Modal>
+
+  	<div v-show="showTable">
+	  	 <Row :gutter="16">
+	  	 		<!-- <div class="search-group">
+	                <i-col span="4">
+	                    <i-input v-model="q.username" @on-enter="query" placeholder="工序名称"/>
+	                </i-col>
+	                <i-button @click="query">查询</i-button>
+	            </div> -->
+		  		<div class="buttons-group">
+				    <i-button type="success" @click="lookLog"><i class="fa fa-plus"></i>查看库存出货记录</i-button>
+		  		</div>
+	  	 </Row>
+    	<i-table border stripe :columns="repertoryColumns" :data="repertoryPageList"></i-table>
+    	<div style="margin: 10px;overflow: hidden">
+	        <div style="float: right;">
+	            <Page :total="repertoryListSize" :current="page" :page-size="10" @on-change="pageChange" ></Page>
+	        </div>
+    	</div>
+    </div>
+    
+    <div v-show="showLog">
+    	<i-table border stripe :columns="logColumns" :data="logPageList"></i-table>
+    	<div style="margin: 10px;overflow: hidden">
+	        <div style="float: right;">
+	            <Page :total="logListSize" :current="logpage" :page-size="10" @on-change="pageChangeLog" ></Page>
+	        </div>
+	        <div>
+    			<i-button type="warning" @click="back">返回</i-button>
+    		</div>
+    	</div>
+    </div>
+</div>
+<script src="/js/jy/repertory.js?#now()"></script>
+</body>
+</html>

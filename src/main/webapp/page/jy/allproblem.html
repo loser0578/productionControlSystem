@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>生产数据统计</title>
+     #include("/page/sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+  	<div v-show="showTable">
+    	<i-table border stripe :columns="problemColumns" :data="problemList"></i-table>
+    </div>
+</div>
+<script src="/js/jy/allproblem.js?#now()"></script>
+</body>
+</html>

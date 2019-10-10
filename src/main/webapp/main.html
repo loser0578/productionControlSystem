@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>生产进度管控系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">     
+        <!-- App favicon -->
+		<link rel="shortcut icon" href="statics/img/logo.png" type="image/x-icon">
+        <!-- App css -->
+        <link href="statics/css/bootstrap2.min.css" rel="stylesheet" type="text/css" />
+        <link href="statics/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="statics/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <nav class="navbar-custom">
+
+            </nav>
+
+        </header>
+
+
+        <div class="wrapper">
+        <img src="statics/img/back.jpg" height="100%" width="100%">
+            <div class="container-fluid">
+
+                <div class="row">
+                	
+                    <!-- <div class="col-xl-3 col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body p-0">
+                                <div class="p-3 pb-0">
+                                    <div class="float-right">
+                                        <i class="mdi mdi-cart text-primary widget-icon"></i>
+                                    </div>
+                                    <h5 class="text-muted font-weight-normal mt-0">订单总数</h5>
+                                    <h3 class="mt-2" id="goodsDate">3,543</h3>
+                                </div>
+                                <div id="sparkline1"></div>
+                            </div> 
+                        </div> 
+                    </div> 
+
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body p-0">
+                                <div class="p-3 pb-0">
+                                    <div class="float-right">
+                                        <i class="mdi mdi-currency-usd text-danger widget-icon"></i>
+                                    </div>
+                                    <h5 class="text-muted font-weight-normal mt-0">完成订单数</h5>
+                                    <h3 class="mt-2" id="sellsDate">21,287</h3>
+                                </div>
+                                <div id="sparkline2"></div>
+                            </div> 
+                        </div> 
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body p-0">
+                                <div class="p-3 pb-0">
+                                    <div class="float-right">
+                                        <i class="mdi mdi-account-multiple text-primary widget-icon"></i>
+                                    </div>
+                                    <h5 class="text-muted font-weight-normal mt-0">生产中订单数</h5>
+                                    <h3 class="mt-2" id="usersate">5,387</h3>
+                                </div>
+                                <div id="sparkline3"></div>
+                            </div>
+                        </div> 
+                    </div> 
+
+                    <div class="col-xl-3 col-lg-3">
+                        <div class="card widget-flat">
+                            <div class="card-body p-0">
+                                <div class="p-3 pb-0">
+                                    <div class="float-right">
+                                        <i class="mdi mdi-eye-outline text-danger widget-icon"></i>
+                                    </div>
+                                    <h5 class="text-muted font-weight-normal mt-0">昨日报工数</h5>
+                                    <h3 class="mt-2" id="visitDate">74,315</h3>
+                                </div>
+                                <div id="sparkline4"></div>
+                            </div> 
+                        </div> 
+                    </div>  -->
+                </div>
+  
+            </div> 
+        </div>
+
+        <script src="/statics/libs/jquery.min.js"></script>
+        <!-- App js -->
+        <script src="/statics/libs/vendor.min.js"></script>
+        <script src="/statics/libs/app.min.js"></script>
+        <!-- Plugins js -->
+        <script src="/statics/libs/Chart.bundle.js"></script>
+        <script src="/statics/libs/jquery.sparkline.min.js"></script>
+        <script src="/statics/libs/jquery.knob.min.js"></script>
+        <script src="/statics/libs/dashboard.init.js"></script>
+
+    </body>
+  		<script>
+			$(function(){
+				$.ajax({
+			        url: "../main/getdata",
+			        async: false,
+			        success: function (r) {
+			        	console.log("rdata"+r)
+			        	$("#goodsDate").html(r[0][r[0].length - 1]);
+			        	$("#sellsDate").html(r[1][r[1].length - 1]);
+			        	$("#usersate").html(r[2][r[2].length - 1]);
+			        	$("#visitDate").html(r[3][r[3].length - 1]);
+			        	
+			        }
+			    });
+			})
+		</script>  
+    
+    
+</html>

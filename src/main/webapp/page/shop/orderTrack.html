@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>礼青礼品单据打印</title>
+    #include("/page/sys/header.html")
+</head>
+<body class="gray-bg">
+<div id="rrapp" v-cloak class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox-content p-xl">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <address>
+                            <strong>{{order.consignee}}</strong><br>
+                            {{order.address}}<br>
+                            <abbr title="Phone">联系方式：</abbr> {{order.mobile}}<br>
+                            <abbr title="Phone">单号：</abbr> {{order.shipping_no}}<br>
+                           	<abbr title="Phone">物 流 状 态 ：</abbr> {{tracestate | statusFilter }}
+
+         </address>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive m-t">
+                    <table class="table table-hover table-responsive table-bordered">
+                        <thead>
+                        <tr>
+                            <th>状态</th>
+                            <th>时间</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="goods in orderGoods">
+                            <td>
+                                <div><strong>{{goods.AcceptStation}}</strong>
+                                </div>
+                            </td>
+                            <td>{{goods.AcceptTime}}</td>
+                          
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="float: right;">
+                    <i-button v-if="showBtn" class="btn btn-warning dim" @click="print"><i class="fa fa-print"></i>打印
+                    </i-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let orderId = #(orderId)
+    var vm = new Vue({
+        el: '#rrapp',
+        data: {
+            showBtn: true,
+            order: {},
+            orderGoods: [],
+            sumRetailPrice: 0,
+            tracestate:0,
+            nowDate: transDate(new Date())
+        },
+        methods: {
+            print: function () {
+                vm.showBtn = false;
+                window.print();
+            }
+        },
+        filters: {
+        	statusFilter: function(status) {
+        	
+             let statusName = ''
+              switch (status) {
+                case '0': {
+                  statusName = '无 轨 迹'
+                  break
+                }
+                case '1': {
+                  statusName = '已揽收'
+                  break
+                }      
+                case '2': {
+                   statusName = '在途中'
+                   break
+                }
+                case '3': {
+                    statusName = '已签收'
+                    break
+                 }
+                case '4': {
+                    statusName = '问题件'
+                    break
+                 }
+
+              }
+              return statusName
+            }
+        },
+        created: function () {
+            Ajax.request({
+                url: "../shop/orderReciver/info/" + orderId,
+                async: true,
+                successCallback: function (r) {
+                    vm.order = r.order;
+                }
+            });
+            Ajax.request({
+                url: "../shop/orderTrack/track?orderId=" + orderId,
+                async: true,
+                successCallback: function (r) {   
+					console.log(r.data.Traces);
+                    vm.orderGoods = r.data.Traces;
+                    vm.tracestate = r.data.State;
+           
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+
+</html>

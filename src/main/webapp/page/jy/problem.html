@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品总览</title>
+     #include("/page/sys/header.html")
+</head>
+<body>
+
+
+<div id="rrapp">
+	<Card>
+		<i-form ref="query" :model="query" :label-width="100" inline>
+				<Form-item label="按年份查询">
+					<Date-picker type="year" placeholder="请选择查询年份" @on-change="timeChange"></Date-picker>
+				</Form-item>
+				<Form-item label="负责人/产品">
+					<Cascader :data="selectList" v-model="query.queryList"></Cascader>
+				</Form-item>
+				<i-button type="success" @click="select">查询</i-button>
+		</i-form>
+        <div id="problem" style="width: 90%;height:400px;margin:0 auto"></div>
+	</Card>
+</div>
+<script src="/js/jy/problem.js?#now()"></script>
+  
+</body>
+</html>

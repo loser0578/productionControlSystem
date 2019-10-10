@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>部件管理</title>
+     #include("/page/sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+  	<div v-show="showTable">
+	  	 <Row :gutter="16">
+	  	 		<!-- <div class="search-group">
+	                <i-col span="4">
+	                    <i-input v-model="q.username" @on-enter="query" placeholder="工序名称"/>
+	                </i-col>
+	                <i-button @click="query">查询</i-button>
+	            </div> -->
+		  		<div class="buttons-group">
+				    <i-button type="success" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</i-button>
+		  		</div>
+	  	 </Row>
+    	<i-table border stripe :columns="partsColumns" :data="partsPageList"></i-table>
+    	<div style="margin: 10px;overflow: hidden">
+	        <div style="float: right;">
+	            <Page :total="partsListSize" :current="page" :page-size="10" @on-change="pageChange" ></Page>
+	        </div>
+    	</div>
+    </div>
+    
+    <Card v-show="showAdd">
+        <p slot="title">{{title}}</p>
+        <i-form ref="addItem" :rules="ruleValidate" :model="addItem" :label-width="100" >
+        	<Form-item label="部件名称" prop="parts_name">
+                <i-input v-model="addItem.parts_name" size="large" placeholder="请输入部件名称" />
+            </Form-item>
+            <Form-item>
+            	<Upload
+			        type="drag"
+			        action="../jy/update/index"
+			        :format="['jpg','jpeg','png']"
+			        :on-success="update">
+			        <div style="padding: 20px 0">
+			            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+			            <p>图片上传</p>
+			        </div>
+    			</Upload>
+            </Form-item>
+            <Form-item label="所需工序" >
+                <i-select v-model="addItem.process_id" size="large" multiple style="width:100">
+        			<i-option v-for="process in processList" :value="process.process_id" :label="process.process_name"></i-option>
+    			</i-select>
+            </Form-item>
+            
+            <Form-item label="排序">
+                <Input-number v-model="addItem.sort" size="large" :editable="false"></Input-number>
+                &nbsp;(数字越小越靠前)
+            </Form-item>
+            <Form-item>
+                <i-button type="primary" @click="publishSubmit('addItem')">提交</i-button>
+                <i-button type="warning" @click="pageList" style="margin-left: 8px"/>返回</i-button>
+            </Form-item>
+        </i-form>
+    </Card>
+</div>
+<script src="/js/jy/parts.js?#now()"></script>
+</body>
+</html>

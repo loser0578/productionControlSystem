@@ -1,0 +1,191 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.lhrj</groupId>
+  <artifactId>jy</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+   <name>嘉元Erp项目</name>
+   <description>嘉元Erp项目</description>
+   
+   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    <jdk.version>1.7</jdk.version>
+    <junit.version>3.8.1</junit.version>
+    <jfinal.version>3.8</jfinal.version>
+    <cos.version>2017.5</cos.version>
+    <log4j.version>1.2.17</log4j.version>
+    <jfinaljetty.version>2018.11</jfinaljetty.version>
+	<druid.version>1.1.10</druid.version>
+	<mysql.version>5.1.46</mysql.version>
+	<jfinalweixin.version>2.3</jfinalweixin.version>
+	<fastjson.version>1.2.28</fastjson.version>
+</properties>
+  
+  <!-- 使用阿里 maven 库 -->
+	<repositories>
+		<repository>
+			<id>ali-maven</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+	
+    <dependencies>
+       <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>${junit.version}</version>
+	      <scope>test</scope>
+	    </dependency>
+	     <dependency>
+	    	<groupId>com.jfinal</groupId>
+	    	<artifactId>cos</artifactId>
+	    	<version>${cos.version}</version>
+	    </dependency>
+		<dependency>
+		    <groupId>com.jfinal</groupId>
+		    <artifactId>jfinal-undertow</artifactId>
+		    <version>1.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.aliyun.oss</groupId>
+		    <artifactId>aliyun-sdk-oss</artifactId>
+		    <version>2.8.3</version>
+		</dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.4.0</version>
+        </dependency>	
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>${fastjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.6.11</version>
+		</dependency>
+	 <dependency>
+	    <groupId>com.jfinal</groupId>
+	    <artifactId>jetty-server</artifactId>
+	    <version>${jfinaljetty.version}</version>
+	    <!--
+			打 war 包时需要改成 provided，以免将一些无用的 jar 打进去
+			为支持 IDEA 下启动项目 此处的 scope 值可以改为 compile 
+		-->
+	    <scope>provided</scope>
+	 </dependency>
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>${druid.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/it.sauronsoftware.cron4j/cron4j -->
+	<dependency>
+	    <groupId>it.sauronsoftware.cron4j</groupId>
+	    <artifactId>cron4j</artifactId>
+	    <version>2.2.5</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>${mysql.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.jfinal</groupId>
+	    <artifactId>jfinal-weixin</artifactId>
+	    <version>${jfinalweixin.version}</version>
+	</dependency>
+
+
+
+
+<!--自选库-->
+
+
+	 <dependency>
+	    <groupId>com.jfinal</groupId>
+	    <artifactId>jfinal</artifactId>
+	    <version>${jfinal.version}</version>
+	  </dependency>
+  </dependencies>
+  
+  
+  <build>
+    <finalName>qilin</finalName>
+	    <plugins>	    
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>3.6.1</version>
+	            <configuration>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	                <encoding>UTF-8</encoding>
+	                               <!-- java8 保留参数名编译参数 -->
+                    <compilerArgument>-parameters</compilerArgument>
+                    <compilerArguments>
+                        <verbose/>
+                    </compilerArguments>
+	            </configuration>
+	        </plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-jar-plugin</artifactId>
+			    <version>2.6</version>
+			    <configuration>
+			        <excludes>
+			            <exclude>*.txt</exclude>
+			            <exclude>*.xml</exclude>
+			            <exclude>*.properties</exclude>
+			        </excludes>
+			    </configuration>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-assembly-plugin</artifactId>
+			  <version>3.1.0</version>
+			  <executions>
+			    <execution>
+			    <id>make-assembly</id>
+			    <phase>package</phase>
+			    <goals>
+			      <goal>single</goal>
+			    </goals>
+			 
+			    <configuration>
+			      <!-- 打包生成的文件名 -->
+			      <finalName>${project.artifactId}</finalName>
+			      <!-- jar 等压缩文件在被打包进入 zip、tar.gz 时是否压缩，设置为 false 可加快打包速度 -->
+			      <recompressZippedFiles>false</recompressZippedFiles>
+			      <!-- 打包生成的文件是否要追加 release.xml 中定义的 id 值 -->
+			      <appendAssemblyId>true</appendAssemblyId>
+			      <!-- 指向打包描述文件 package.xml -->
+			      <descriptors>
+			        <descriptor>package.xml</descriptor>
+			      </descriptors>
+			      <!-- 打包结果输出的基础目录 -->
+			      <outputDirectory>${project.build.directory}/</outputDirectory>
+			      </configuration>
+			      </execution>
+			    </executions>
+			</plugin>           
+	  </plugins>
+  </build>
+</project>
